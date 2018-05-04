@@ -6,26 +6,22 @@ import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TableComments extends ElementBase {
     public TableComments(WebElement element) {
         super(element);
     }
 
-    public List<WebElement> rows() {
-         List<WebElement> result = getElements("//tr");
+    public List<Row> rows() {
+         return getElements("//tr").stream().map(i -> new Row(i))
+                 .collect(Collectors.toList());
+          }
 
-        /*List<Row> result = getElement("//tbody")
-                .findElements(By.cssSelector("tr"));*/
+    public Row rowById(int id) {
 
-
-         return result;
-    }
-
-    public Row rowById() {
-
-        //rows().stream().filter
-        return null;
+        return rows().stream().filter(row ->
+            row.numberColumn().getText().equals(""+id)).findFirst().get();
     }
 
     public TableCommentsHeader tableHeader() {
