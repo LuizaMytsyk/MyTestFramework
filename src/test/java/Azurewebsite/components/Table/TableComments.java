@@ -33,4 +33,3 @@ public class TableComments extends ElementBase {
     }
 
 }
-Hello!
